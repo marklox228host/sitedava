@@ -156,12 +156,13 @@
     const amount = urlParams.get('amount');
 
     if (amount) {
-        // Format the amount to two decimal places
+        // Форматируем сумму
         const formattedAmount = parseFloat(amount).toFixed(2);
         document.getElementById('amountDisplay').innerText = formattedAmount;
         document.getElementById('paypalAmount').value = formattedAmount;
     }
 
+    // Обновление валюты
     document.querySelectorAll('.currency-option').forEach(option => {
         option.addEventListener('click', () => {
             document.querySelectorAll('.currency-option').forEach(opt => opt.classList.remove('active'));
@@ -171,3 +172,8 @@
         });
     });
 </script>
+
+</body>
+
+</html>
+ф
