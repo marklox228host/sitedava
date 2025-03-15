@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +15,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
         }
 
         .container {
@@ -77,11 +77,17 @@
         }
 
         .disabled-btn {
-            background: #333;
-            color: #888;
+            background-color: #555;
             cursor: not-allowed;
             box-shadow: none;
-            opacity: 0.6;
+        }
+
+        .amount-display {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #ff8c00;
+            font-weight: bold;
+            animation: fadeIn 1s ease;
         }
 
         @keyframes fadeIn {
@@ -96,24 +102,23 @@
         }
     </style>
 </head>
-
 <body>
 
 <div class="container">
     <h1>Выберите товар</h1>
 
-    <!-- Перенос на выбор способа оплаты -->
+    <!-- Обновленные кнопки -->
     <button class="payment-btn" onclick="redirectToMethods(0.30)">Купить обычную аву (0.30 €)</button>
     <button class="payment-btn" onclick="redirectToMethods(0.60)">Купить аву-баннер (0.60 €)</button>
-    <button class="payment-btn disabled-btn" onclick="alert('Цена не установлена 🤡')">Купить кастомную аву (цены няма)</button>
+    <button class="payment-btn disabled-btn" onclick="alert('Цена не установлена 🤡')">Купить кастомную аву (цены нема)</button>
 </div>
 
 <script>
+    // Функция редиректа с параметром суммы
     function redirectToMethods(amount) {
-        window.location.href = `methods.html?amount=${amount}`;
+        window.location.href = `./methods.html?amount=${amount}`;
     }
 </script>
 
 </body>
-
 </html>
