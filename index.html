@@ -84,36 +84,6 @@
             animation: fadeIn 1s ease;
         }
 
-        .currency-select {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .currency-option {
-            padding: 10px 20px;
-            border: 2px solid #ff4500;
-            background-color: #222;
-            color: #ff8c00;
-            border-radius: 10px;
-            margin: 0 5px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-weight: bold;
-        }
-
-        .currency-option:hover {
-            background-color: #ff4500;
-            color: #fff;
-            transform: scale(1.1);
-        }
-
-        .currency-option.active {
-            background-color: #ff4500;
-            color: #fff;
-            border-color: #ff8c00;
-        }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -124,6 +94,35 @@
                 transform: translateY(0);
             }
         }
+
+        /* Добавлены стили для кнопки "Купить аватарку" */
+        .buy-avatar-btn {
+            background: linear-gradient(45deg, #ff4500, #ff8c00);
+            color: #fff;
+            padding: 12px 30px;
+            margin: 10px 0;
+            font-size: 1rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.6);
+            font-weight: bold;
+            letter-spacing: 1px;
+            width: 100%;
+            display: block;
+            outline: none;
+        }
+
+        .buy-avatar-btn:hover {
+            background: linear-gradient(45deg, #ff8c00, #ff4500);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
+        }
+
+        .buy-avatar-btn:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body>
@@ -131,8 +130,8 @@
     <div class="container">
         <h1>Dava Shop</h1>
         <p class="subtitle">Предприниматель с 2025 года</p>
-        <!-- Обновленная ссылка -->
-        <button onclick="window.location.href='./PurchaseSite.html'">Купить аватарку</button>
+        <!-- Теперь кнопка имеет класс buy-avatar-btn -->
+        <button class="buy-avatar-btn" onclick="window.location.href='./PurchaseSite.html'">Купить аватарку</button>
     </div>
 
 </body>
