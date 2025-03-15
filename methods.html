@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Способы оплаты - Dava Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.6);
+            animation: fadeIn 0.8s ease;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff4500, #ff8c00, #ff4500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            animation: fire 1.5s infinite alternate;
+        }
+
+        @keyframes fire {
+            0% {
+                text-shadow: 0 0 15px #ff4500, 0 0 30px #ff8c00, 0 0 45px #ff4500;
+            }
+            100% {
+                text-shadow: 0 0 20px #ff8c00, 0 0 40px #ff4500, 0 0 60px #ff8c00;
+            }
+        }
+
+        .payment-btn {
+            background: linear-gradient(45deg, #ff4500, #ff8c00);
+            color: #fff;
+            padding: 12px 30px;
+            margin: 10px 0;
+            font-size: 1rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.6);
+            font-weight: bold;
+            letter-spacing: 1px;
+            width: 100%;
+            display: block;
+            outline: none;
+        }
+
+        .payment-btn:hover {
+            background: linear-gradient(45deg, #ff8c00, #ff4500);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
+        }
+
+        .payment-btn:active {
+            transform: scale(0.95);
+        }
+
+        .amount-display {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #ff8c00;
+            font-weight: bold;
+            animation: fadeIn 1s ease;
+        }
+
+        .currency-select {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .currency-option {
+            padding: 10px 20px;
+            border: 2px solid #ff4500;
+            background-color: #222;
+            color: #ff8c00;
+            border-radius: 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .currency-option:hover {
+            background-color: #ff4500;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .currency-option.active {
+            background-color: #ff4500;
+            color: #fff;
+            border-color: #ff8c00;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Выберите способ оплаты</h1>
+
+    <div class="currency-select">
+        <div class="currency-option active" data-currency="EUR">€</div>
+        <div class="currency-option" data-currency="USD">$</div>
+    </div>
+
+    <p class="amount-display">Сумма к оплате: <span id="amountDisplay">0</span></p>
+
+    <!-- Оплата через PayPal -->
+    <form id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <input type="hidden" name="business" value="loiki1627@gmail.com">
+        <input type="hidden" name="item_name" value="Аватарка">
+        <input type="hidden" name="amount" id="paypalAmount" value="">
+        <input type="hidden" name="currency_code" id="paypalCurrency" value="EUR">
+        <input type="hidden" name="cmd" value="_xclick">
+        <button type="submit" class="payment-btn">💸 Оплатить через PayPal</button>
+    </form>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const amount = urlParams.get('amount');
+
+    if (amount) {
+        // Format the amount to two decimal places
+        const formattedAmount = parseFloat(amount).toFixed(2);
+        document.getElementById('amountDisplay').innerText = formattedAmount;
+        document.getElementById('paypalAmount').value = formattedAmount;
+    }
+
+    document.querySelectorAll('.currency-option').forEach(option => {
+        option.addEventListener('click', () => {
+            document.querySelectorAll('.currency-option').forEach(opt => opt.classList.remove('active'));
+            option.classList.add('active');
+            const selectedCurrency = option.getAttribute('data-currency');
+            document.getElementById('paypalCurrency').value = selectedCurrency;
+        });
+    });
+</script>

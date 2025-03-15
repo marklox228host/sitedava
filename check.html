@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Чек транзакции</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Roboto', sans-serif;
+            background-color: #111;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        /* Экран загрузки */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(17, 17, 17, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(255, 69, 0, 0.8), 0 0 20px rgba(255, 69, 0, 0.7);
+        }
+
+        .loading-spinner {
+            border: 8px solid rgba(255, 255, 255, 0.1);
+            border-top: 8px solid #ff4500;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            animation: spin 1.5s linear infinite;
+            margin-bottom: 30px;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Галочка */
+        .checkmark {
+            display: none;
+            width: 250px;
+            height: 250px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: showCheckmark 0.5s ease-out forwards;
+            z-index: 10000;
+        }
+
+        .checkmark svg {
+            width: 100%;
+            height: 100%;
+            stroke: #4caf50;
+            stroke-width: 6; /* Тонкая галочка */
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+            animation: draw 2s ease-out forwards;
+        }
+
+        @keyframes showCheckmark {
+            from {
+                transform: translate(-50%, -50%) scale(0);
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        @keyframes draw {
+            from {
+                stroke-dashoffset: 400;
+            }
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* Основной контент */
+        .content {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            font-size: 1.5rem;
+            background-color: #222;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #ff4500;
+            text-shadow: 0 4px 8px rgba(255, 69, 0, 0.7), 0 0 20px rgba(255, 69, 0, 0.7);
+        }
+
+        .transaction-id {
+            font-size: 2rem;
+            color: #ffcc00;
+            margin-top: 15px;
+            text-shadow: 0 2px 5px rgba(255, 204, 0, 0.6);
+        }
+
+        .info {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-top: 20px;
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        .info strong {
+            color: #ff4500;
+        }
+
+        .info a {
+            color: #ff4500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .info a:hover {
+            color: #ffcc00;
+            text-decoration: underline;
+        }
+
+        /* Эффект появления */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Загрузка -->
+<div id="loaderContainer" class="loader-container">
+    <div class="loading-spinner"></div>
+    <p>Обработка транзакции...</p>
+</div>
+
+<!-- Галочка -->
+<div id="checkmarkContainer" class="checkmark">
+    <svg viewBox="0 0 52 52">
+        <path d="M14 27 L21 34 L38 17"></path>
+    </svg>
+</div>
+
+<!-- Контент после загрузки -->
+<div id="content" class="content">
+    <h1>Спасибо за покупку!</h1>
+    <p>Номер транзакции:</p>
+    <p class="transaction-id" id="transactionId">#123456</p>
+    <p class="info">Напишите в Telegram <strong><a href="https://t.me/Davchik0_0">@Davchik0_0</a></strong> и отправьте этот чек.</p>
+</div>
+
+<script>
+    // Генерация случайного номера транзакции
+    const transactionId = Math.floor(Math.random() * 1000000) + 100000;
+    document.getElementById('transactionId').innerText = `#${transactionId}`;
+
+    // Показываем загрузку на 5 секунд
+    setTimeout(() => {
+        // Убираем экран загрузки
+        document.getElementById('loaderContainer').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('loaderContainer').style.display = 'none';
+
+            // Показываем и анимируем галочку
+            const checkmark = document.getElementById('checkmarkContainer');
+            checkmark.style.display = 'block';
+
+            // Галочка будет показываться 2 секунды
+            setTimeout(() => {
+                checkmark.style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            }, 2000); // Галочка будет видна 2 секунды
+        }, 500);
+    }, 5000);
+
+    // Отправка в Discord через вебхук
+    const webhookURL = 'https://discord.com/api/webhooks/1349658680815124521/wqwOvwiVyqrE1tF9w1m2nNSdisMeeBP4-u0EVhtQ6AG4kdmjc8_UoIn7j3ZTvMj85Y3q';
+    const payload = {
+        content: `💸 **Новая транзакция!**\n📌 Номер транзакции: **#${transactionId}**`
+    };
+
+    fetch(webhookURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    }).then(() => {
+        console.log('Транзакция отправлена в Discord!');
+    }).catch(error => {
+        console.error('Ошибка при отправке в Discord:', error);
+    });
+</script>
+
+</body>
+</html>
