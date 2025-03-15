@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dava Shop</title>
+    <style>
+        body {
+            background-color: #000; /* Черный фон */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5); /* Прозрачный черный фон для контейнера */
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            animation: fadeIn 1s ease;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff4500, #ff8c00, #ff4500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fire 1.5s infinite alternate;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+        }
+
+        @keyframes fire {
+            0% {
+                text-shadow: 0 0 15px #ff4500, 0 0 30px #ff8c00, 0 0 45px #ff4500;
+            }
+            100% {
+                text-shadow: 0 0 20px #ff8c00, 0 0 40px #ff4500, 0 0 60px #ff8c00;
+            }
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #bbb;
+            font-weight: 300;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        button {
+            background: linear-gradient(45deg, #ff4500, #ff8c00);
+            color: #fff;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.6);
+            font-weight: bold;
+            letter-spacing: 1px;
+            outline: none;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #ff8c00, #ff4500);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Dava Shop</h1>
+        <p class="subtitle">Предприниматель с 2025 года</p>
+        <button onclick="window.location.href='purchaseSite.html'">Купить аватарку</button>
+    </div>
+
+</body>
+</html>
