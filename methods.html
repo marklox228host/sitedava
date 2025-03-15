@@ -156,7 +156,6 @@
     const amount = urlParams.get('amount');
 
     if (amount) {
-        // Форматируем сумму
         const formattedAmount = parseFloat(amount).toFixed(2);
         document.getElementById('amountDisplay').innerText = formattedAmount;
         document.getElementById('paypalAmount').value = formattedAmount;
